@@ -66,9 +66,9 @@ while True:
     else:
         print("\nYou see a chest across the room as you squeeze through the entry into the next cavern.")
         print("""
-        You feel something tug on your clothes and you hear a click.
-        Water begins to rush between you and the chest, finally coming to a halt.
-        You see a body of water spanning the room between you and the chest.
+    You feel something tug on your clothes and you hear a click.
+    Water begins to rush between you and the chest, finally coming to a halt.
+    You see a body of water spanning the room between you and the chest.
         """)
         decision = input("You can either 'wait' and think about the situation, or 'swim' to the treasure ").lower()  # Second decision
         if decision != "wait":
@@ -82,10 +82,10 @@ while True:
             time.sleep(4)
             print("As you ponder the situation for 10 minutes, you hear another click...")
             print("""
-            You hear the sound of large rocks grinding and ropes stretching.
-            The chest across the river is now crushed by a boulder, leaving no gold in the wreckage.
-            To your right, what appeared to be a wall has shifted and revealed 3 doors.
-            You see doors colored Red, Blue, and Yellow each with a corresponding stone button.
+    You hear the sound of large rocks grinding and ropes stretching.
+    The chest across the river is now crushed by a boulder, leaving no gold in the wreckage.
+    To your right, what appeared to be a wall has shifted and revealed 3 doors.
+    You see doors colored Red, Blue, and Yellow each with a corresponding stone button.
             """)
             decision = input("You feel this is the moment of truth.  Choose the 'Red' 'Blue' or 'Yellow' button ").lower() # Third decision
             if decision == "yellow":
