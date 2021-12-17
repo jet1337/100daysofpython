@@ -6,16 +6,10 @@ import random
 def shuffle(input):
     random.seed(random.randint(0,42069))
     list = []
-    result = ""
     for char in input:
         list.append(char)
-    for i in range(0,len(list)):
-        swap_index = random.randint(0,len(list)-1)
-        temp = list[i]
-        list[i] = list[swap_index]
-        list[swap_index] = temp
-    for item in list: result += item
-    return result
+    random.shuffle(list)
+    return list
 
 def main():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -42,18 +36,19 @@ def main():
 # Get the characters from the corresponding lists
         password = ""
         for i in range(lets):
-            password += letters[random.randint(0,len(letters) - 1)]
+            password += random.choice(letters)
         for i in range(int(nums)):
-            password += numbers[random.randint(0,len(numbers) - 1)]
+            password += random.choice(numbers)
         for i in range(int(symbs)):
-            password += symbols[random.randint(0, len(symbols) - 1)]
+            password += random.choice(symbols)
 
 # Randomize the selected characters
         password = shuffle(password)
-        print(f"Your new password: {password}")
+        print("Your new password: ", *password, sep="")
 # Check if user wants to quit
         new_pass = input("Would you like a different password? 'y' for Yes, anything else to quit  ").lower()
         if new_pass in ['y','yes']:
+            print()
             continue
         else:
             break
