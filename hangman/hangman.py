@@ -80,6 +80,14 @@ def get_word():
     return selection
 
 def main():
+    print("""
+  _                                                         
+ | |__     __ _   _ __     __ _   _ __ ___     __ _   _ __  
+ | '_ \   / _` | | '_ \   / _` | | '_ ` _ \   / _` | | '_ \ 
+ | | | | | (_| | | | | | | (_| | | | | | | | | (_| | | | | |
+ |_| |_|  \__,_| |_| |_|  \__, | |_| |_| |_|  \__,_| |_| |_|
+                          |___/ 
+    """)
     word = get_word()                       # get the word and create the blank version
     secret_word = ["_"] * len(word)
     letters = []
