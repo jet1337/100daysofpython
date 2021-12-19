@@ -95,9 +95,12 @@ def main():
     win = False
     while not win and count < 6:            # main game loop
         print(*secret_word, sep="")
-        guess = input("Guess a letter: ")
+        guess = input("Guess a letter: ").lower()
         if guess in letters:
             print("Guess Again - That letter has already been guessed\n")
+            continue
+        if not guess.isalpha():
+            print("Only letters are valid for this game...\n")
             continue
         letters.append(guess)
         if guess not in word:               # incorrect guess
