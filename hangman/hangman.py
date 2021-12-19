@@ -6,30 +6,72 @@ import random
 
 # map pictures to dictionary to be printed each iteration
 def picture(count):
-    art0 = """
-    art0
+    art0 = """            
+         +--------;      
+         |        |      
+         |        O
+         |
+         |
+         |
+         |
+    _____|______________
     """
     art1 = """
-    art1
-        """
+         +--------;
+         |        |
+         |        O
+         |        |
+         |
+         |
+         |
+    _____|______________
+    """
     art2 = """
-    art2
-        """
+         +--------;
+         |        |
+         |        O
+         |       /|
+         |
+         |
+         |
+    _____|______________
+    """
     art3 = """
-    art3
-        """
+         +--------;
+         |        |
+         |        O
+         |       /|\\
+         |
+         |
+         |
+    _____|______________
+    """
     art4 = """
-    art4
-        """
+         +--------;
+         |        |
+         |        O
+         |       /|\\
+         |         \\
+         |
+         |
+    _____|______________
+    """
     art5 = """
-        art5
-            """
+         +--------;
+         |        |
+         |        O
+         |       /|\\
+         |       / \\
+         |
+         |
+    _____|______________
+    """
     key = {0:art0, 1:art1, 2:art2, 3:art3, 4:art4, 5:art5}
     print(key[count])
 
 # generate word from a wordlist
 def get_word():
-    s = requests.get("https://www.mit.edu/~ecprice/wordlist.10000")
+    s = requests.get("https://www.mit.edu/~ecprice/wordlist.10000") # .100000 also available for more options
     words = s.content.splitlines()
     word = random.choice(words).decode()
     selection = []
@@ -38,21 +80,16 @@ def get_word():
     return selection
 
 def main():
-    # get the curret word
-    word = get_word()
-    secret_word = []
+    word = get_word()                       # get the word and create the blank version
+    secret_word = ["_"] * len(word)
     letters = []
     count = 0
     win = False
-    # make a 'blank' word
-    for letter in word:
-        secret_word.append("_")
-    # main game loop
-    while not win and count < 6:
+    while not win and count < 6:            # main game loop
         print(*secret_word, sep="")
         guess = input("Guess a letter: ")
         if guess in letters:
-            print("Guess Again - That letter has already been guessed")
+            print("Guess Again - That letter has already been guessed\n")
             continue
         letters.append(guess)
         if guess not in word:               # incorrect guess
@@ -65,8 +102,7 @@ def main():
         if secret_word == word:             # end condition
             win = True
             break
-    # Results
-    print(f"The word was {''.join(word)}")
+    print(f"\nThe word was {(''.join(word)).upper()}")  # results
     if win:
         print("You win!")
     else:
