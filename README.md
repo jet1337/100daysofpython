@@ -16,4 +16,7 @@ Play a game of rock paper scissors with the computer
 <b>Project 5: hangman.py</b>
 Play a game of hangman - guess letters in a word and save "the hangman"
 
+<b>Project 6: caesar.py</b>
+Encode/decode Caesar Cipher messages (lowercase with non-alpha bypass)
+
 
