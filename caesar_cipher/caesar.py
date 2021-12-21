@@ -9,8 +9,11 @@ def caesar(message, direction, shift):
         shift *= -1
     for letter in message:
         if letter.isalpha():
-            position = alphabet.index(letter)
-            newMessage += alphabet[(position + shift + 26) % 26]
+            position = alphabet.index(letter.lower())
+            if letter.islower():
+                newMessage += alphabet[(position + shift + 26) % 26]
+            else:
+                newMessage += alphabet[(position + shift + 26) % 26].upper()
         else:
             newMessage += letter
     return newMessage
@@ -36,7 +39,7 @@ def main():
             break
         else:
             print("\nEnter a valid option\n")
-    message = input("Enter your message: ").lower()
+    message = input("Enter your message: ")
     shift = int(input("Enter the shift amount: ")) % 26
     print(message)
     message = caesar(message, direction, shift)
