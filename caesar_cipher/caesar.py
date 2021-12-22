@@ -19,7 +19,7 @@ def caesar(message, direction, shift):
     return newMessage
 
 def main():
-    print("""
+    print(""" 
    ___                                
   / __\  __ _   ___  ___   __ _  _ __ 
  / /    / _` | / _ \/ __| / _` || '__|
