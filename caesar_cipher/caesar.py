@@ -11,9 +11,9 @@ def caesar(message, direction, shift):
         if letter.isalpha():
             position = alphabet.index(letter.lower())
             if letter.islower():
-                newMessage += alphabet[(position + shift + 26) % 26]
+                newMessage += alphabet[(position + shift) % 26]
             else:
-                newMessage += alphabet[(position + shift + 26) % 26].upper()
+                newMessage += alphabet[(position + shift) % 26].upper()
         else:
             newMessage += letter
     return newMessage
