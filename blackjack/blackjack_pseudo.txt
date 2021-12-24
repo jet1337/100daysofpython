@@ -1,0 +1,30 @@
+deck of cards {card type: {count:,value:}
+dealer_win
+
+deal cards
+	give player and dealer cards
+	subtract counts from deck
+
+show player one dealer card
+
+ask player what they want to do
+	choose: stay or hit
+	stay
+		go to dealer decision
+	hit
+		player takes cards until: choose to stay, hit 21, go over 21
+	-player complete-
+	
+	dealer
+	1.	reveal second card 
+	2.	dealer must stay at >=17
+			while dealer < 17:
+				dealer draw
+				
+			compare with player
+				if tie
+					draw
+				if dealer > player
+					dealer win
+				if player > dealer
+					player wins
