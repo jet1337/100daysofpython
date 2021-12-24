@@ -102,6 +102,9 @@ def main():
         if not guess.isalpha():
             print("Only letters are valid for this game...\n")
             continue
+        if len(guess) != 1:
+            print("Enter only a single character...")
+            continue
         letters.append(guess)
         if guess not in word:               # incorrect guess
             picture(count)
