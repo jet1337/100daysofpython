@@ -60,7 +60,7 @@ def cardValue(hand, deck):
 # output: booleans for stay and bust variables
 def valueCheck(value):
     if value == 21:
-        print("21!")
+        print("You have 21!")
         b = False
         s = True
     elif value > 21:
@@ -118,6 +118,7 @@ def deckTotal(deck, count):
             print(".", end=" ")
             time.sleep(.4)
         print("\nShuffling complete!\n")
+        print("-------------------------------------------")
         time.sleep(.5)
 
 # main function
@@ -165,7 +166,7 @@ def main():
         # player gets dealt 21
         if player_value == 21:
             print(f"You have {player_value}!\n")
-            time.sleep(.5)
+            time.sleep(1)
             p_stay = True
         # otherwise, let player choose
         while not p_stay and not p_bust:
@@ -207,6 +208,7 @@ def main():
 
         # Check if the player wants to continue
         keep_playing = input("\nKeep playing? 'y' or 'n': ")
+        print("-------------------------------------------")
         if keep_playing == 'y':
             p_stay, p_bust, d_stay, d_bust = False, False, False, False
             deckTotal(deck, deck_count)
