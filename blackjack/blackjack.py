@@ -4,12 +4,13 @@
 Future expansions:
 1. variable deck size
 2. get card artwork to actually work, to replace list representation and to look cool
-3. add betting functionality
+3. add betting functionality [COMPLETE]
 """
 
 import random
 import time
 import cards
+from bets import playerWallet
 
 # Deal cards function
 # input: deck and number of cards
@@ -140,6 +141,7 @@ def main():
         "Q":{"count":4,"value":10},
         "K":{"count":4,"value":10}
         }
+    wallet = playerWallet(500) # create a new wallet
     deck_count = 1  # total number of decks
     p_bust = False  # player loss variable
     d_bust = False  # dealer loss variable
@@ -147,10 +149,26 @@ def main():
     d_stay = False  # dealer stay variable
     play = True     # keep playing variable
 
+
     # initialize the deck
     reshuffle(deck, deck_count)
     # main game loop, player continue decision at the end
     while play:
+        bj = False # blackjack tracker variable
+        # Tell player their balance
+        print(f"Your current balance is ${wallet.balance()}")
+        # Get player wager
+        # Keep trying if they bet over their balance or enter invalid
+        while True:
+            wager = input(f"How much would you like to bet?: ")
+            if wager.isnumeric():
+                if int(wager) > wallet.balance():
+                    print("\nYou bet more than you have - enter a valid amount\n")
+                else:
+                    wallet.bet(int(wager))
+                    break
+            else:
+                print("\nEnter an integer number only\n")
         # deal dealer cards, update deck counts
         dealer_cards = deal(deck, 2)
         dealer_value = cardValue(dealer_cards, deck)
@@ -165,9 +183,10 @@ def main():
 
         # player gets dealt 21
         if player_value == 21:
-            print(f"You have {player_value}!\n")
+            print(f"BLACKJACK, you were dealt {player_value}!\n")
             time.sleep(1)
             p_stay = True
+            bj = True
         # otherwise, let player choose
         while not p_stay and not p_bust:
             print(f"Your current hand's value is {player_value}")
@@ -186,6 +205,8 @@ def main():
         # player busted
         if p_bust:
             print(f"You busted!\nYour total was {player_value}")
+            # player loses wager
+            wallet.decrease()
         else:
         # player stayed
             dealer_cards, dealer_value, d_stay, d_bust = dealerTurn(deck, dealer_cards, dealer_value, d_stay, d_bust)
@@ -195,26 +216,43 @@ def main():
             print(f"The dealer busted! Their final total was {dealer_value}")
             if not p_bust:
                 print(f"You won! - Your total was {player_value}")
+                # increase wallet based on win
+                if bj:
+                    wallet.blackjack()
+                else:
+                    wallet.increase()
 
         # compare hands
-        # draw
         if not p_bust and not d_bust:
+            # draw
             if player_value == dealer_value:
                 print(f"It was a draw - Player: {player_value}, Dealer: {dealer_value}")
+            # dealer wins
             elif dealer_value > player_value:
                 print(f"The dealer won... - Player: {player_value}, Dealer: {dealer_value}")
+                wallet.decrease()
+            # player wins
             elif player_value > dealer_value:
                 print(f"You won! - Player: {player_value}, Dealer: {dealer_value}")
+                if bj:
+                    wallet.blackjack()
+                else:
+                    wallet.increase()
 
-        # Check if the player wants to continue
-        keep_playing = input("\nKeep playing? 'y' or 'n': ")
-        print("-------------------------------------------")
-        if keep_playing == 'y':
-            p_stay, p_bust, d_stay, d_bust = False, False, False, False
-            deckTotal(deck, deck_count)
-            play = True
-        else:
+
+        # Check if the player can/wants to continue
+        if wallet.balance() <= 0:
+            print("\nYou ran out of money! -- Restart and try again!\n")
             play = False
+        else:
+            keep_playing = input("\nKeep playing? 'y' or 'n': ")
+            print("-------------------------------------------")
+            if keep_playing == 'y':
+                p_stay, p_bust, d_stay, d_bust = False, False, False, False
+                deckTotal(deck, deck_count)
+                play = True
+            else:
+                play = False
 
 
 if __name__ == "__main__": main()
