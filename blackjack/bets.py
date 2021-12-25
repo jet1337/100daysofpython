@@ -31,4 +31,4 @@ class playerWallet:
 # add 1.5x wager if Blackjack
     def blackjack(self):
         print(f"\nWon ${int(self.wager * 1.5)}")
-        self.wallet =+ int(self.wager * 1.5)
+        self.wallet += int(self.wager * 1.5)
