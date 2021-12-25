@@ -184,9 +184,10 @@ def main():
         # player gets dealt 21
         if player_value == 21:
             print(f"BLACKJACK, you were dealt {player_value}!\n")
-            time.sleep(1)
             p_stay = True
+            p_bust = False
             bj = True
+            time.sleep(1)
         # otherwise, let player choose
         while not p_stay and not p_bust:
             print(f"Your current hand's value is {player_value}")
@@ -253,6 +254,7 @@ def main():
                 play = True
             else:
                 play = False
-
+    # Final amount in wallet
+    print(f"You walk away from the table with ${wallet.balance()}")
 
 if __name__ == "__main__": main()
