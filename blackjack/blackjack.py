@@ -4,7 +4,9 @@
 Future expansions:
 1. variable deck size
 2. get card artwork to actually work, to replace list representation and to look cool
-3. add betting functionality [COMPLETE]
+3a. add betting functionality [COMPLETE]
+3b. add insurance functionality for dealer showing Ace
+4. test Stack implementation of the card deck (may require more memory but would be like a real deck)
 """
 
 import random
@@ -142,7 +144,7 @@ def main():
         "K":{"count":4,"value":10}
         }
     wallet = playerWallet(500) # create a new wallet
-    deck_count = 1  # total number of decks
+    deck_count = 5  # total number of decks
     p_bust = False  # player loss variable
     d_bust = False  # dealer loss variable
     p_stay = False  # player stay variable
@@ -160,7 +162,7 @@ def main():
         # Get player wager
         # Keep trying if they bet over their balance or enter invalid
         while True:
-            wager = input(f"How much would you like to bet?: ")
+            wager = input(f"How much would you like to bet?: $")
             if wager.isnumeric():
                 if int(wager) > wallet.balance():
                     print("\nYou bet more than you have - enter a valid amount\n")
@@ -255,6 +257,7 @@ def main():
             else:
                 play = False
     # Final amount in wallet
-    print(f"You walk away from the table with ${wallet.balance()}")
+    if wallet.balance() > 0:
+        print(f"You walk away from the table with ${wallet.balance()}")
 
 if __name__ == "__main__": main()
