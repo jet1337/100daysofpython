@@ -23,4 +23,6 @@ Encode/decode Caesar Cipher messages (lowercase with non-alpha bypass)
 Play a game of Blackjack with the computer \\Beginner level capstone project\\
 (added some object-oriented aspects, and gambling!)
 
+<b>Project 8: secretnum.py</b>
+Guess a secret number between 1 and 100, two different difficulties
 
