@@ -21,5 +21,6 @@ Encode/decode Caesar Cipher messages (lowercase with non-alpha bypass)
 
 <b>Project 7: blackjack.py</b>
 Play a game of Blackjack with the computer \\Beginner level capstone project\\
+(added some object-oriented aspects, and gambling!)
 
 
