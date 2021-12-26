@@ -14,8 +14,8 @@ def secretNum():
     random.seed(random.randint(0,6969420))
     return random.randint(1, 100)
 
-
 # select difficulty
+# output: int guess count
 def difficulty():
     level = ""
     while True:
