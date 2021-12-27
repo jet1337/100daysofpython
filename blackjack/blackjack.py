@@ -14,10 +14,13 @@ import time
 import cards
 from bets import playerWallet
 
-# Deal cards function
-# input: deck and number of cards
-# output: *LIST* of card names
 def deal(deck, count):
+    """
+    Deal specified number of cards from the deck, only choosing cards with "count">0\n
+    :param deck: Dictionary with card count/values
+    :param count: Number of cards to be dealt
+    :return: List of cards dealt ["A", "2", etc]
+    """
     random.seed(random.randint(0,42069))
     cards = []  # Available cards
     chosen_cards = [] # Cards to return
@@ -33,11 +36,15 @@ def deal(deck, count):
         count -= 1
     return chosen_cards
 
-# Card value function
-# input: hand & deck of cards
-# output: sum of card values
-# note: if an Ace valued at 11 would bust the player, auto-value to 1
+
 def cardValue(hand, deck):
+    """
+    Returns the value of the hand passed to the function\n
+    Counts Aces last to ensure optimal scoring\n
+    :param hand: List of cards in the hand
+    :param deck: Dictionary with card count/values
+    :return: Int sum of card values
+    """
     hand_value = 0
     ace_count = 0
     # calculate the value of all non-aces
@@ -58,27 +65,36 @@ def cardValue(hand, deck):
         ace_count -= 1
     return hand_value
 
-# value check function
-# input: player hand value
-# output: booleans for stay and bust variables
+
 def valueCheck(value):
+    """
+    Checks the hand value to see if the player busted or gets 21\n
+    :param value: Int Hand's current value
+    :return: Boolean Stay and Bust variables
+    """
     if value == 21:
         print("You have 21!")
-        b = False
-        s = True
+        bust = False
+        stay = True
     elif value > 21:
-        b = True
-        s = True
+        bust = True
+        stay = True
     else:
-        b = False
-        s = False
-    return s, b
+        bust = False
+        stay = False
+    return stay, bust
 
-# Dealer's turn decision function
-# input: deck, dealer hand, dealer hand value, dealer stay/bust trackers
-# output: dealer hand, hand value, stay/bust trackers
-# note: added timer so the player could keep track of dealer actions
+
 def dealerTurn(deck, hand, value, stay, bust):
+    """
+    Automates the dealer decision making after the player is finished with their turn\n
+    :param deck: Dictionary, card count/values
+    :param hand: List, Dealer's current hand
+    :param value: Int, Dealer's current hand value
+    :param stay: Bool, Dealer stay condition
+    :param bust: Bool, Dealer bust condition
+    :return: Finalized hand, value, stay, and bust variables
+    """
     print("\n-- Dealer's Turn --")
     # show the dealer's hand
     print(hand, value)
@@ -100,17 +116,26 @@ def dealerTurn(deck, hand, value, stay, bust):
         # check if the dealer busted or hit 21
     return hand, value, stay, bust
 
-# reshuffle function
-# input: deck
-# Reinitialize card counts to original values
+
 def reshuffle(deck, count):
+    """
+    'Reshuffles' the deck, resetting all card-count values\n
+    :param deck: Dictionary, card count/values
+    :param count: Int, number of decks in play
+    :return: VOID
+    """
     for card in deck:
         deck[card]["count"] = 4 * count
 
-# deck total function
-# input: deck
-# output: boolean deck status
+
 def deckTotal(deck, count):
+    """
+    Checks the deck amount, if lower than 50% calls reshuffle()\n
+    Timer added to create more real user experience\n
+    :param deck: Dictionary, card count/values
+    :param count: Int, number of decks in play
+    :return: VOID
+    """
     total_count = 0
     for card in deck:
         total_count += deck[card]["count"]
@@ -124,8 +149,12 @@ def deckTotal(deck, count):
         print("-------------------------------------------")
         time.sleep(.5)
 
-# main function
 def main():
+    """
+    Main Function\n
+    Uses a wallet object (bets.py) to keep track of player money\n
+    Will exit if player chooses to quit or player money goes to $0
+    """
     print(cards.title)
     # create a deck of cards
     deck = {
