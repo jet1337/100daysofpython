@@ -12,7 +12,8 @@ Future expansions:
 import random
 import time
 import cards
-from bets import playerWallet
+from bets import PlayerWallet
+
 
 def deal(deck, count):
     """
@@ -21,15 +22,15 @@ def deal(deck, count):
     :param count: Number of cards to be dealt
     :return: List of cards dealt ["A", "2", etc]
     """
-    random.seed(random.randint(0,42069))
-    cards = []  # Available cards
-    chosen_cards = [] # Cards to return
+    random.seed(random.randint(0, 42069))
+    cards_in_deck = []  # Available cards
+    chosen_cards = []  # Cards to return
     # add all cards with count > 0 to available cards
     for c in deck:
         if deck[c]["count"] > 0:
-            cards.append(c)
+            cards_in_deck.append(c)
     while count > 0:
-        card = random.choice(cards)
+        card = random.choice(cards_in_deck)
         # card selected that has a count of 0
         chosen_cards.append(card)
         deck[card]["count"] -= 1
@@ -37,7 +38,7 @@ def deal(deck, count):
     return chosen_cards
 
 
-def cardValue(hand, deck):
+def card_value(hand, deck):
     """
     Returns the value of the hand passed to the function\n
     Counts Aces last to ensure optimal scoring\n
@@ -66,7 +67,7 @@ def cardValue(hand, deck):
     return hand_value
 
 
-def valueCheck(value):
+def value_check(value):
     """
     Checks the hand value to see if the player busted or gets 21\n
     :param value: Int Hand's current value
@@ -85,7 +86,7 @@ def valueCheck(value):
     return stay, bust
 
 
-def dealerTurn(deck, hand, value, stay, bust):
+def dealer_turn(deck, hand, value, stay, bust):
     """
     Automates the dealer decision making after the player is finished with their turn\n
     :param deck: Dictionary, card count/values
@@ -109,8 +110,8 @@ def dealerTurn(deck, hand, value, stay, bust):
                 bust = True
                 break
         # deal 1 card to dealer
-        hand.append(deal(deck,1)[0])
-        value = cardValue(hand, deck)
+        hand.append(deal(deck, 1)[0])
+        value = card_value(hand, deck)
         print(hand, value)
         time.sleep(1.5)
         # check if the dealer busted or hit 21
@@ -128,7 +129,7 @@ def reshuffle(deck, count):
         deck[card]["count"] = 4 * count
 
 
-def deckTotal(deck, count):
+def deck_total(deck, count):
     """
     Checks the deck amount, if lower than 50% calls reshuffle()\n
     Timer added to create more real user experience\n
@@ -149,6 +150,7 @@ def deckTotal(deck, count):
         print("-------------------------------------------")
         time.sleep(.5)
 
+
 def main():
     """
     Main Function\n
@@ -158,21 +160,21 @@ def main():
     print(cards.title)
     # create a deck of cards
     deck = {
-        "A":{"count":4,"value":11},
-        "2":{"count":4,"value":2},
-        "3":{"count":4,"value":3},
-        "4":{"count":4,"value":4},
-        "5":{"count":4,"value":5},
-        "6":{"count":4,"value":6},
-        "7":{"count":4,"value":7},
-        "8":{"count":4,"value":8},
-        "9":{"count":4,"value":9},
-        "10":{"count":4,"value":10},
-        "J":{"count":4,"value":10},
-        "Q":{"count":4,"value":10},
-        "K":{"count":4,"value":10}
+        "A": {"count": 4, "value": 11},
+        "2": {"count": 4, "value": 2},
+        "3": {"count": 4, "value": 3},
+        "4": {"count": 4, "value": 4},
+        "5": {"count": 4, "value": 5},
+        "6": {"count": 4, "value": 6},
+        "7": {"count": 4, "value": 7},
+        "8": {"count": 4, "value": 8},
+        "9": {"count": 4, "value": 9},
+        "10": {"count": 4, "value": 10},
+        "J": {"count": 4, "value": 10},
+        "Q": {"count": 4, "value": 10},
+        "K": {"count": 4, "value": 10}
         }
-    wallet = playerWallet(500) # create a new wallet
+    wallet = PlayerWallet(500)  # create a new wallet
     deck_count = 5  # total number of decks
     p_bust = False  # player loss variable
     d_bust = False  # dealer loss variable
@@ -180,12 +182,11 @@ def main():
     d_stay = False  # dealer stay variable
     play = True     # keep playing variable
 
-
     # initialize the deck
     reshuffle(deck, deck_count)
     # main game loop, player continue decision at the end
     while play:
-        bj = False # blackjack tracker variable
+        bj = False  # blackjack tracker variable
         # Tell player their balance
         print(f"Your current balance is ${wallet.balance()}")
         # Get player wager
@@ -202,13 +203,13 @@ def main():
                 print("\nEnter an integer number only\n")
         # deal dealer cards, update deck counts
         dealer_cards = deal(deck, 2)
-        dealer_value = cardValue(dealer_cards, deck)
+        dealer_value = card_value(dealer_cards, deck)
         # show player one dealer card
         print(f"\n['{dealer_cards[0]}'] Dealer is showing: {deck[dealer_cards[0]]['value']}")
 
         # deal player 2 cards, update deck counts
         player_cards = deal(deck, 2)
-        player_value = cardValue(player_cards, deck)
+        player_value = card_value(player_cards, deck)
         print("\n--Player's Turn--")
         print(f"{player_cards}")
 
@@ -228,11 +229,11 @@ def main():
             else:
                 print()
                 # deal 1 card to player
-                player_cards.append(deal(deck,1)[0])
+                player_cards.append(deal(deck, 1)[0])
                 print(player_cards)
-                player_value = cardValue(player_cards, deck)
+                player_value = card_value(player_cards, deck)
                 # check if the player busted or hit 21
-                p_stay, p_bust = valueCheck(player_value)
+                p_stay, p_bust = value_check(player_value)
 
         # player busted
         if p_bust:
@@ -240,8 +241,8 @@ def main():
             # player loses wager
             wallet.decrease()
         else:
-        # player stayed
-            dealer_cards, dealer_value, d_stay, d_bust = dealerTurn(deck, dealer_cards, dealer_value, d_stay, d_bust)
+            # player stayed
+            dealer_cards, dealer_value, d_stay, d_bust = dealer_turn(deck, dealer_cards, dealer_value, d_stay, d_bust)
 
         # dealer busted
         if d_bust:
@@ -271,7 +272,6 @@ def main():
                 else:
                     wallet.increase()
 
-
         # Check if the player can/wants to continue
         if wallet.balance() <= 0:
             print("\nYou ran out of money! -- Restart and try again!\n")
@@ -281,7 +281,7 @@ def main():
             print("-------------------------------------------")
             if keep_playing == 'y':
                 p_stay, p_bust, d_stay, d_bust = False, False, False, False
-                deckTotal(deck, deck_count)
+                deck_total(deck, deck_count)
                 play = True
             else:
                 play = False
@@ -289,4 +289,6 @@ def main():
     if wallet.balance() > 0:
         print(f"You walk away from the table with ${wallet.balance()}")
 
-if __name__ == "__main__": main()
+
+if __name__ == "__main__":
+    main()

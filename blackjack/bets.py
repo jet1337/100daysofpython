@@ -3,11 +3,11 @@ Bets class
 Implementation of gambling for blackjack game
 """
 
-# For wins, normal win = 1:1, blackjack = 1.5:1
-class playerWallet:
+
+class PlayerWallet:
     def __init__(self, money):
-        self.wallet = int(money) # player's current balance
-        self.wager = 0           # player's current bet
+        self.wallet = int(money)  # player's current balance
+        self.wager = 0            # player's current bet
 
 # return the current balance
     def balance(self):
