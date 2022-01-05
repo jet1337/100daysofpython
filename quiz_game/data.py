@@ -6,9 +6,10 @@ from html import unescape
 
 question_data = []
 NUMBER_OF_QUESTIONS = 10  # change this number to get more questions
+API_LINK = f"https://opentdb.com/api.php?amount={NUMBER_OF_QUESTIONS}&type=boolean"
 
 # generate new questions from open trivia db
-s = requests.get(f"https://opentdb.com/api.php?amount={NUMBER_OF_QUESTIONS}&type=boolean")
+s = requests.get(API_LINK)
 # get the content of the page
 content = s.content.decode()
 # extract a json object from the string format and turn it into a dictionary
