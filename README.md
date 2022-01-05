@@ -34,3 +34,7 @@ Order various coffee drinks from a coin-operated machine
 
 <b>Project 11: newcoffee.py</b>\
 Updated version of coffeemachine.py; Uses Object-Oriented Programming
+
+<b>Project 12: quiz_game.py</b>\
+Try to guess correctly in a True/False Quiz! Questions pulled from OpenTriviaDB
+
