@@ -1,4 +1,16 @@
 # Quiz Game
+"""
+Supporting files: data.py, question_model.py, quiz_brain.py
+
+Upgrade from original project: data.py will pull questions randomly from OpenTriviaDB instead of
+a static list.  Currently it's set to all categories.  If you want to change this, craft your own API link here
+
+######################################
+# https://opentdb.com/api_config.php #
+######################################
+
+and paste it into the data.py file API_LINK variable.
+"""
 
 import quiz_brain
 from question_model import Question
